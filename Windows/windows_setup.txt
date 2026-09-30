@@ -1,0 +1,44 @@
+MOODLE LOOP - WINDOWS 11 SETUP
+==============================
+
+1. INSTALL PYTHON
+   - Get it from python.org (or: winget install Python.Python.3.12)
+   - Tick "Add Python to PATH" in the installer
+
+2. INSTALL PACKAGES
+   Open PowerShell / Terminal:
+
+   pip install selenium keyboard pyperclip
+
+   (Selenium downloads chromedriver by itself.)
+
+3. START CHROME WITH DEBUGGING
+   Close ALL Chrome windows first (check the system tray too), then run:
+
+   "C:\Program Files\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222 --user-data-dir="C:\chrome-debug"
+
+   - This opens a fresh profile. Log in to Moodle and ChatGPT in it.
+   - The --user-data-dir part is required, Chrome ignores debugging
+     without it.
+   - Tip: make a desktop shortcut with that command as the target.
+
+4. RUN THE SCRIPT
+   - Open the Moodle quiz page in that Chrome window
+   - Keep a ChatGPT tab open in the same window
+   - In a terminal, run:
+
+   python moodle_loop.py
+
+   You should see: Ready. Press F8 to toggle.
+
+5. USE IT
+   - F8 = start / stop the loop
+   - Loop order: copy question -> ask ChatGPT -> paste answer -> Check -> Next
+   - It stops itself on errors or when there's no Next button
+
+TROUBLESHOOTING
+   - Nothing happens on F8: run the terminal as Administrator
+   - "cannot connect to 127.0.0.1:9222": Chrome wasn't started with the
+     debug command above, or old Chrome windows were still open
+   - "No tab with moodle.rodenborch.nl": open the quiz in the debug Chrome
+   - Selenium errors after a Chrome update: pip install -U selenium
